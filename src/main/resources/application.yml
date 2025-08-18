@@ -1,0 +1,28 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: backend-service
+  profiles:
+    active: @spring.profiles.active@
+  jackson:
+    time-zone: Asia/Ho_Chi_Minh   # JSON response đúng giờ VN
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: Asia/Ho_Chi_Minh   # Hibernate dùng đúng TZ
+
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+logging:
+  level:
+    root: INFO
+    web: INFO
