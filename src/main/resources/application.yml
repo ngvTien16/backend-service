@@ -14,8 +14,6 @@ spring:
         jdbc:
           time_zone: Asia/Ho_Chi_Minh   # Hibernate dùng đúng TZ
 
-
-
 management:
   endpoints:
     web:
