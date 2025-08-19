@@ -1,11 +1,15 @@
 package vn.java.backend.model.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "product_variants")
 public class ProductVariant {
     @Id

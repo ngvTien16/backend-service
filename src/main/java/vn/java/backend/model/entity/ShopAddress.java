@@ -1,8 +1,12 @@
 package vn.java.backend.model.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "shop_addresses")
 public class ShopAddress {
 

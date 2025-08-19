@@ -1,10 +1,14 @@
 package vn.java.backend.model.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.Instant;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "return_requests")
 public class ReturnRequest {
 
