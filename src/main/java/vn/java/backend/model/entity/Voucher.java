@@ -20,6 +20,6 @@ public class Voucher {
     private Instant validFrom ;
     private Instant validTo;
 
-    @OneToMany(mappedBy = "voucher")
+    @OneToMany(mappedBy = "voucher" , cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<VoucherUsage> usages;
 }

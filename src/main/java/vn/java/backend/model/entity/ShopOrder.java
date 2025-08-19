@@ -24,7 +24,7 @@ public class ShopOrder {
     private BigDecimal totalAmount;
     private String status;
 
-    @OneToMany(mappedBy = "shopOrder")
+    @OneToMany(mappedBy = "shopOrder", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<OrderItem> items;
 
 }

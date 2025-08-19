@@ -23,7 +23,7 @@ public class Shop {
     @Column(name = "created_at")
     private Instant createdAt =Instant.now();
 
-    @OneToMany(mappedBy = "shop")
+    @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Product> products;
 
 

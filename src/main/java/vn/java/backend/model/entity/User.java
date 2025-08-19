@@ -19,13 +19,13 @@ public class User {
     @Column(name = "created_at")
     private Instant createdAt = Instant.now();
 
-    @OneToMany(mappedBy = "users")
+    @OneToMany(mappedBy = "user" ,cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
     private List<Shop> shops;
 
-    @OneToMany(mappedBy = "users")
+    @OneToMany(mappedBy = "user" ,cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     private List<Order> orders;
 
-    @OneToMany(mappedBy = "users")
+    @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Cart> carts;
 
 }

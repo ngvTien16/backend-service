@@ -17,7 +17,7 @@ public class ProductOption {
 
     private String name ;
 
-    @OneToMany(mappedBy = "productOption")
+    @OneToMany(mappedBy = "productOption" ,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<ProductVariant> variants;
 
 }
