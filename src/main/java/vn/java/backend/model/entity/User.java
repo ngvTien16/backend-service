@@ -16,9 +16,16 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
     private String username;
+
+    @Column(nullable = false, unique = true)
     private String email;
+
+    @Column(nullable = false)
     private String password;
+    private String verificationCode;
+    private boolean isVerified;
 
     @Column(name = "created_at")
     private Instant createdAt = Instant.now();
