@@ -10,7 +10,7 @@ public class VoucherUsage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id ;
+    private Long id ;
 
     @ManyToOne
     @JoinColumn(name = "voucher_id")

@@ -9,7 +9,7 @@ import java.util.List;
 public class ProductOption {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id ;
+    private Long id ;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
