@@ -6,13 +6,20 @@ import org.springframework.web.bind.annotation.*;
 import vn.java.backend.model.entity.User;
 import vn.java.backend.model.request.LoginRequest;
 import vn.java.backend.model.request.RegisterRequest;
+import vn.java.backend.model.response.JwtResponse;
+import vn.java.backend.service.JwtService;
 import vn.java.backend.service.UserService;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private JwtService jwtService;
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody RegisterRequest request) {
@@ -28,9 +35,18 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest request) {
+    public ResponseEntity<JwtResponse> login(@RequestBody LoginRequest request) {
         User user = userService.login(request);
-        return ResponseEntity.ok("Login successful! Welcome " + user.getUsername());
+
+        String token = jwtService.generateToken(user.getUsername());
+
+        JwtResponse response = new JwtResponse(
+                "Login successful!",
+                user.getUsername(),
+                token
+        );
+
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/logout")
