@@ -36,3 +36,7 @@ logging:
   level:
     root: INFO
     web: INFO
+
+jwt:
+  secret: mysecretkeymysecretkeymysecretkey1234
+  expiration: 43200000
