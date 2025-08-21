@@ -6,11 +6,13 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import vn.java.backend.model.entity.User;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -29,9 +31,17 @@ public class JwtService {
     }
 
     // create token
-    public String generateToken(String username){
+    public String generateToken(User user){
         Map<String,Object> claims = new HashMap<>();
-        return createToken(claims,username);
+        claims.put("authorities", List.of("ROLE_" + user.getRole().name()));
+
+        return Jwts.builder()
+                .setClaims(claims)
+                .setSubject(user.getUsername())
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
+                .compact();
     }
 
 
@@ -78,6 +88,17 @@ public class JwtService {
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
+    }
+    public Date getIssuedAt(String token) {
+        return extractClaim(token, Claims::getIssuedAt);
+    }
+
+    public Date getExpiration(String token) {
+        return extractClaim(token, Claims::getExpiration);
+    }
+
+    public List<String> extractAuthorities(String token) {
+        return extractAllClaims(token).get("authorities", List.class);
     }
 
 }

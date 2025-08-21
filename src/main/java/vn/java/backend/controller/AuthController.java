@@ -10,6 +10,7 @@ import vn.java.backend.model.response.JwtResponse;
 import vn.java.backend.service.JwtService;
 import vn.java.backend.service.UserService;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -38,15 +39,26 @@ public class AuthController {
     public ResponseEntity<JwtResponse> login(@RequestBody LoginRequest request) {
         User user = userService.login(request);
 
-        String token = jwtService.generateToken(user.getUsername());
+        // Tạo JWT có claim authorities từ role
+        String token = jwtService.generateToken(user);
 
-        JwtResponse response = new JwtResponse(
-                "Login successful!",
-                user.getUsername(),
-                token
-        );
+        // Lấy authorities đưa ra response (giống trong token)
+        List<String> authorities = List.of("ROLE_" + user.getRole().name());
 
-        return ResponseEntity.ok(response);
+        JwtResponse resp = JwtResponse.builder()
+                .message("Login successful!")
+                .userId(user.getId())
+                .username(user.getUsername())
+                .email(user.getEmail())
+                .role(user.getRole().name())
+                .authorities(authorities)
+                .tokenType("Bearer")
+                .token(token)
+                .issuedAt(jwtService.getIssuedAt(token).toInstant())
+                .expiresAt(jwtService.getExpiration(token).toInstant())
+                .build();
+
+        return ResponseEntity.ok(resp);
     }
 
     @PostMapping("/logout")

@@ -3,6 +3,7 @@ package vn.java.backend.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import vn.java.backend.model.entity.Role;
 import vn.java.backend.model.entity.User;
 import vn.java.backend.model.request.LoginRequest;
 import vn.java.backend.model.request.RegisterRequest;
@@ -37,6 +38,8 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setVerified(false);
 
+        user.setRole(Role.CUSTOMER);
+
         String code = UUID.randomUUID().toString();
         user.setVerificationCode(code);
 
@@ -52,6 +55,7 @@ public class UserService {
             User user = optionalUser.get();
             user.setVerified(true);
             user.setVerificationCode(null);
+
             userRepository.save(user);
             return true;
         }
@@ -72,8 +76,6 @@ public class UserService {
 
         return user;
     }
-
-
 
 
 }
