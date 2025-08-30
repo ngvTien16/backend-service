@@ -65,4 +65,5 @@ public class AuthController {
     public ResponseEntity<String> logout() {
         return ResponseEntity.ok("Logout successful! (Client should remove JWT token)");
     }
+    
 }

@@ -22,6 +22,7 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
+    //phan trang ...
     public Page<ProductResponse> getAllProducts(Pageable pageable, String keyword){
         Page<Product> productPage;
         if(keyword != null && !keyword.isEmpty()){

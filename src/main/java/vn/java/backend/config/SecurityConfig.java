@@ -64,9 +64,11 @@ public class SecurityConfig {
                                 "/webjars/**"
                         ).permitAll()
                         .requestMatchers("/api/auth/login", "/api/auth/register", "/api/auth/verify").permitAll()
+                        .requestMatchers("/api/seller/register-shop").hasRole("CUSTOMER") //  register shop
                         .requestMatchers("/api/cart/**", "/api/order/**","/api/test/customer").hasRole("CUSTOMER")
                         // seller
                         .requestMatchers("/api/seller/**", "/api/product/**").hasRole("SELLER")
+
                         // admin
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")// login/register free
                         .anyRequest().authenticated()// các API khác phải có token
