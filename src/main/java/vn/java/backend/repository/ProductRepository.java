@@ -9,4 +9,8 @@ import vn.java.backend.model.entity.Product;
 @Repository
 public interface ProductRepository extends JpaRepository<Product,Long> {
     Page<Product> findByNameContainingIgnoreCase(String name , Pageable pageable);
+    Page<Product> findByCategory_Id(Long categoryId, Pageable pageable);
+    Page<Product> findByShop_Id(Long shopId, Pageable pageable);
+    Page<Product> findByCategory_IdAndShop_Id(Long categoryId, Long shopId, Pageable pageable);
+
 }
