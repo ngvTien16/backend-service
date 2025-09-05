@@ -1,8 +1,7 @@
 package vn.java.backend.model.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -10,6 +9,9 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "categories")
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Category {
 
     @Id
@@ -20,6 +22,7 @@ public class Category {
     @JoinColumn(name = "parent_id")
     private Category parent;
 
+    @Column(nullable = false, unique = true)
     private String name ;
     private String description;
 

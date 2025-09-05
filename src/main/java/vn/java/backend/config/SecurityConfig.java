@@ -3,6 +3,7 @@ package vn.java.backend.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -64,14 +65,20 @@ public class SecurityConfig {
                                 "/webjars/**"
                         ).permitAll()
                         .requestMatchers("/api/auth/login", "/api/auth/register", "/api/auth/verify").permitAll()
+                        // category
+                        .requestMatchers(HttpMethod.POST, "/api/categories/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/categories/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/categories/**").hasRole("ADMIN")
+
                         .requestMatchers("/api/seller/register-shop").hasRole("CUSTOMER") //  register shop
                         .requestMatchers("/api/cart/**", "/api/order/**","/api/test/customer").hasRole("CUSTOMER")
                         // seller
                         .requestMatchers("/api/seller/**", "/api/product/**").hasRole("SELLER")
-
                         // admin
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")// login/register free
-                        .anyRequest().authenticated()// các API khác phải có token
+                        .anyRequest().permitAll() //.authenticated()// các API khác phải có token
+
+
 
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
